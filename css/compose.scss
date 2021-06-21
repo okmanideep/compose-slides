@@ -1,4 +1,25 @@
-.word-highlight {
-	color: #fff;
-	font-size: 74px;
+.reveal {
+	.word-highlight {
+		color: #fff;
+		font-size: 74px;
+	}
+
+	.code {
+		font-family: 'Dank Mono', monospace;
+	}
+
+	.stamp {
+		position: absolute;
+		transition: opacity 300ms ease-in;
+	}
+
+	.serif {
+		font-family: 'Georgia', serif;
+		font-size: 24px;
+		font-style: italic;
+	}
+
+	.blue {
+		color: #42affa;
+	}
 }

@@ -5,4 +5,4 @@
 *
 * Copyright (C) 2020 Hakim El Hattab, https://hakim.se
 */
-.word-highlight{color:#fff;font-size:74px}
+.reveal .word-highlight{color:#fff;font-size:74px}.reveal .code{font-family:"Dank Mono",monospace}.reveal .stamp{position:absolute;transition:opacity .3s ease-in}.reveal .serif{font-family:Georgia,serif;font-size:24px;font-style:italic}.reveal .blue{color:#42affa}

@@ -86,7 +86,6 @@
 					<code class="language-kotlin" data-trim data-line-numbers>
 						class PageFragment: Fragment() {
 							//...
-
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
 								}
@@ -100,7 +99,6 @@
 					<code class="language-kotlin" data-trim data-line-numbers>
 						class PageFragment: Fragment() {
 							//...
-
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
 									is PageState.Loading -> {
@@ -118,8 +116,6 @@
 					<pre data-id="fr-animation">
 					<code class="language-kotlin" data-trim data-line-numbers>
 						class PageFragment: Fragment() {
-							//...
-
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
 									// is PageState.LOADING
@@ -139,8 +135,6 @@
 					<pre data-id="fr-animation">
 					<code class="language-kotlin" data-trim data-line-numbers>
 						class PageFragment: Fragment() {
-							//...
-
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
 									// is PageState.LOADING
@@ -161,8 +155,6 @@
 					<pre data-id="fr-animation">
 					<code class="language-kotlin" data-trim data-line-numbers>
 						class PageFragment: Fragment() {
-							//...
-
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
 									// is PageState.LOADING
@@ -179,15 +171,19 @@
 					</code>
 					</pre>
 				</section>
-				<section>
-					setText
-					show()
-					hide()
-					add()
-					remove()
-					update()
-					DiffUtil
-					🔨👉🙏
+				<section data-transition="zoom-out fade-out">
+					<p class="stamp code fragment" style="left:25%;top:300%;scale:1.4">setText()</p>
+					<p class="stamp code fragment" style="left:75%;top:-320%;scale:1.2">show()</p>
+					<p class="stamp code fragment" style="left:15%;top:15%;scale:1.6">hide()</p>
+					<p class="stamp code fragment" style="left:65%;top:60%;scale:0.9">add()</p>
+					<p class="stamp code fragment" style="left:75%;top:240%;scale:1.2">remove()</p>
+					<p class="stamp code fragment" style="left:5%;top:-360%;scale:0.8">update()</p>
+					<p class="stamp code fragment" style="left:40%;top:-210%;scale:1.2">DiffUtil</p>
+					🔨
+				</section>
+				<section data-transition="zoom-in fade-in">
+					<p class="serif">We mutate the UI to match our state</p>
+					<p class="serif fragment">For all possible combinations of <code class="blue">previous state</code> and <code class="blue">current state</code></p>
 				</section>
 			</div>
 		</div>
