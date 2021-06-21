@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/compose.css">
+		<link rel="stylesheet" href="dist/theme/one-dark.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/atom-one-dark.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>Compose for Android</section>
+				<section data-auto-animate>
+					<p>Declarative</p>
+					<p>UI framework</p>
+				</section>
+				<section data-auto-animate>
+					<p class="word-highlight">Declarative</p>
+					<p>🤔</p>
+				</section>
+				<section>
+					<pre><code class="language-kotlin" data-trim data-line-numbers="2|4-7|9-11">
+						sealed class PageState {
+							data class Loading(): PageState()
+
+							data class Error(
+								val code: String,
+								val message: String
+							): PageState()
+
+							data class Success(
+								val content: Content
+							): PageState()
+						}
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="vm-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageViewModel: ViewModel() {
+							var state by mutableLiveDataOf(PageState.Loading())
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="vm-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageViewModel: ViewModel() {
+							var state by mutableLiveDataOf(PageState.Loading())
+
+							fun onResponse(content: Content) {
+								state = PageState.Success(content)
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="vm-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageViewModel: ViewModel() {
+							var state by mutableLiveDataOf(PageState.Loading())
+
+							fun onResponse(content: Content) {
+								state = PageState.Success(content)
+							}
+
+							fun onError(code: String, message: String) {
+								state = PageState.Error(code, message)
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="fr-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageFragment: Fragment() {
+							//...
+
+							fun onStateChanged(pageState: PageState) {
+								when (pageState) {
+								}
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="fr-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageFragment: Fragment() {
+							//...
+
+							fun onStateChanged(pageState: PageState) {
+								when (pageState) {
+									is PageState.Loading -> {
+										loadingView.setVisibility(View.VISIBLE)
+										contentView.setVisibility(View.INVISIBLE)
+										errorView.setVisibility(View.INVISIBLE)
+									}
+								}
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="fr-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageFragment: Fragment() {
+							//...
+
+							fun onStateChanged(pageState: PageState) {
+								when (pageState) {
+									// is PageState.LOADING
+									is PageState.Error -> {
+										errorMessageTv.setText(pageState.message)
+										loadingView.setVisibility(View.INVISIBLE)
+										contentView.setVisibility(View.INVISIBLE)
+										errorView.setVisibility(View.VISIBLE)
+									}
+								}
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="fr-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageFragment: Fragment() {
+							//...
+
+							fun onStateChanged(pageState: PageState) {
+								when (pageState) {
+									// is PageState.LOADING
+									// is PageState.ERROR
+									is PageState.Success -> {
+										setContent(pageState.content)
+										loadingView.setVisibility(View.INVISIBLE)
+										contentView.setVisibility(View.VISIBLE)
+										errorView.setVisibility(View.INVISIBLE)
+									}
+								}
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="fr-animation">
+					<code class="language-kotlin" data-trim data-line-numbers>
+						class PageFragment: Fragment() {
+							//...
+
+							fun onStateChanged(pageState: PageState) {
+								when (pageState) {
+									// is PageState.LOADING
+									// is PageState.ERROR
+									is PageState.Success -> {
+										setContent(pageState.content)
+										loadingView.setVisibility(View.INVISIBLE)
+										animateContentIn()
+										errorView.setVisibility(View.INVISIBLE)
+									}
+								}
+							}
+						}
+					</code>
+					</pre>
+				</section>
+				<section>
+					setText
+					show()
+					hide()
+					add()
+					remove()
+					update()
+					DiffUtil
+					🔨👉🙏
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
