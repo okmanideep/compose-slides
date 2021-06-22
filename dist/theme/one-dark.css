@@ -13,16 +13,16 @@ section.has-light-background, section.has-light-background h1, section.has-light
  *********************************************/
 :root {
   --r-background-color: #282c34;
-  --r-main-font: Verdana, Helvetica, sans-serif;
+  --r-main-font: Roboto Slab, Helvetica, sans-serif;
   --r-main-font-size: 42px;
   --r-main-color: #fff;
   --r-block-margin: 20px;
   --r-heading-margin: 0 0 20px 0;
-  --r-heading-font: Verdana, Helvetica, sans-serif;
+  --r-heading-font: Roboto Slab, Helvetica, sans-serif;
   --r-heading-color: #fff;
   --r-heading-line-height: 1.2;
   --r-heading-letter-spacing: normal;
-  --r-heading-text-transform: uppercase;
+  --r-heading-text-transform: none;
   --r-heading-text-shadow: none;
   --r-heading-font-weight: 600;
   --r-heading1-text-shadow: none;
@@ -359,4 +359,46 @@ section.has-light-background, section.has-light-background h1, section.has-light
   box-shadow: none;
   tab-size: 2;
   -moz-tab-size: 2;
+}
+.reveal .word-highlight {
+  color: #fff;
+  font-size: 74px;
+}
+.reveal .code {
+  font-family: "Dank Mono", monospace;
+}
+.reveal .stamp {
+  position: absolute;
+  transition: opacity 300ms ease-in;
+}
+.reveal .serif {
+  font-family: "Georgia", serif;
+  font-style: italic;
+}
+.reveal .small {
+  font-size: 24px;
+}
+.reveal .blue {
+  color: #42affa;
+}
+.reveal .red {
+  color: #e06c75;
+}
+.reveal .box {
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 16px 0;
+  margin: 24px 32px;
+  background: #3a404b;
+}
+.reveal .slides section .fragment.highlight-blue.visible {
+  color: #42affa;
+}
+.reveal .slides h1,
+.reveal .slides h2,
+.reveal .slides h3,
+.reveal .slides h4,
+.reveal .slides h5,
+.reveal .slides h6 {
+  margin-bottom: 42px;
 }

@@ -17,7 +17,10 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Compose for Android</section>
+				<section>
+					Compose for Android 🤖
+					<p class="small">@okmanideep</p>
+				</section>
 				<section data-auto-animate>
 					<p>Declarative</p>
 					<p>UI framework</p>
@@ -118,8 +121,8 @@
 						class PageFragment: Fragment() {
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
-									// is PageState.LOADING
-									is PageState.Error -> {
+									// is PageState.Loading
+									is PageState.Errored -> {
 										errorMessageTv.setText(pageState.message)
 										loadingView.setVisibility(View.INVISIBLE)
 										contentView.setVisibility(View.INVISIBLE)
@@ -137,8 +140,8 @@
 						class PageFragment: Fragment() {
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
-									// is PageState.LOADING
-									// is PageState.ERROR
+									// is PageState.Loading
+									// is PageState.Errored
 									is PageState.Success -> {
 										setContent(pageState.content)
 										loadingView.setVisibility(View.INVISIBLE)
@@ -157,8 +160,8 @@
 						class PageFragment: Fragment() {
 							fun onStateChanged(pageState: PageState) {
 								when (pageState) {
-									// is PageState.LOADING
-									// is PageState.ERROR
+									// is PageState.Loading
+									// is PageState.Errored
 									is PageState.Success -> {
 										setContent(pageState.content)
 										loadingView.setVisibility(View.INVISIBLE)
@@ -182,8 +185,533 @@
 					🔨
 				</section>
 				<section data-transition="zoom-in fade-in">
-					<p class="serif">We mutate the UI to match our state</p>
-					<p class="serif fragment">For all possible combinations of <code class="blue">previous state</code> and <code class="blue">current state</code></p>
+					<p class="serif small">We mutate the UI to match our state</p>
+					<p class="serif small fragment">For all possible combinations of <code class="blue">previous state</code> and <code class="blue">current state</code></p>
+				</section>
+				<section data-auto-animate>
+					<p>What if?</p>
+					<pre>
+						<code class="language-kotlin" data-trim data-line-numbers>
+							fun onStateChanged(state: PageState) {
+								when (state) {
+									is PageState.Loading -> LoadingUI()
+									is PageState.Errored -> ErroredUI(state.message)
+									is PageState.Success -> ContentUI(state.content)
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<p>What if?</p>
+					<code class="blue">UI = fn(state)</code>
+					<p class="fragment">💩 performance</p>
+				</section>
+				<section data-auto-animate>
+					<p>What if?</p>
+					<code class="blue">Shadow UI = fn(state)</code>
+					<p class="fragment">🤔</p>
+				</section>
+				<section data-transition="zoom-out fade-out">
+					<div class="box">UI Models 🟦</div>
+					<div class="fragment">
+						🔻 <code>fn</code><br>
+						<div class="box" data-id="shadow-ui">Shadow UI 🌲</div>
+					</div>
+					<div class="fragment">
+						<div style="display:flex;align-items:center;justify-content:center">🔻 &nbsp;<span class="small fragment highlight-blue">Diffing Framework 🧠</span></div>
+						<div class="box" data-id="shadow-ui">UI Changes to apply ✨</div>
+					</div>
+				</section>
+				<section data-transition="zoom-in fade-in">
+					<h4>Declarative UI Framework</h4>
+					<ul>
+						<li class="fragment">React</li>
+						<li class="fragment">Flutter</li>
+						<li class="fragment">SwiftUI</li>
+						<li class="fragment"><strong>Compose 🚀</strong></li>
+					</ul>
+				</section>
+				<section data-auto-animate>
+					<h6>Declarative UI Framework</h6>
+					<div class="box" data-id="ui-models">UI Models 🟦</div>
+					<div>
+						🔻 <code>fn</code><br>
+						<div class="box" data-id="shadow-ui">Shadow UI 🌲</div>
+					</div>
+					<div>
+						<div style="display:flex;align-items:center;justify-content:center">🔻 &nbsp;<span class="small">UI Framework 🧠</span></div>
+						<div class="box" data-id="ui-changes">UI Changes to apply ✨</div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<h6>Compose</h6>
+					<div class="box" data-id="ui-models">UI Models 🟦</div>
+					<div>
+						🔻 compiler modified <code class="fragment highlight-blue">fn</code> 🪄<br>
+						<div class="box" data-id="ui-changes">UI Changes to apply ✨</div>
+					</div>
+				</section>
+				<section>
+					<div class="centered">
+						<div class="toggle on" onClick="toggle(this)">
+							<div class="knob"></div>
+						</div>
+					</div>
+				</section>
+				<section data-transition="fade-out">
+					<pre>
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-transition="fade-in">
+					<pre>
+						<code class="language-kotlin" data-trim data-line-numbers="1|2-4">
+							@Composable
+							fun Toggle() {
+								
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								Box() {
+								}
+							}
+						</code>
+					</pre>
+					<p class="fragment"><code class="blue">Box</code> is like <code>FrameLayout</code></p>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								Box(modifier = Modifier
+									.background(Color.Gray)
+								) {
+								}
+							}
+						</code>
+					</pre>
+					<p class="fragment"><code class="blue">Modifier</code>s modify the appearance or behavior of a <strong class="red">single</strong> element</p>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								Box(modifier = Modifier
+									.width(64.dp)
+									.height(32.dp)
+									.clip(RoundedRectShape(16.dp))
+									.background(Color.Gray)
+								) {
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								Box(modifier = Modifier
+									.width(64.dp)
+									.height(32.dp)
+									.clip(RoundedRectShape(16.dp))
+									.background(Color.Gray)
+								) {
+								}
+							}
+
+							@Preview
+							@Composable
+							fun TogglePreview() = Toggle()
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle off"></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								Box(modifier = Modifier
+									.width(64.dp)
+									.height(32.dp)
+									.background(Color.Gray)
+									.clip(RoundedRectShape(16.dp))
+								) {
+								}
+							}
+
+							@Preview
+							@Composable
+							fun TogglePreview() = Toggle()
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle squared off"></div>
+					</div>
+					<p class="fragment">Order of the <code class="blue">Modifier</code>s matters</p>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle() {
+								Box(modifier = Modifier
+									// width, height, clip
+									.background(Color.Gray)
+								) {
+								}
+							}
+
+							@Preview @Composable
+							fun TogglePreview() = Toggle()
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle off"></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="2-3,6,12">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val bgColor = if(isEnabled) Color.Blue else Color.Gray
+								Box(modifier = Modifier
+									// width, height, clip
+									.background(bgColor)
+								) {
+								}
+							}
+
+							@Preview @Composable
+							fun TogglePreview() = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle off"></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="2-3,6,12">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val bgColor = if(isEnabled) Color.Blue else Color.Gray
+								Box(modifier = Modifier
+									// width, height, clip
+									.background(bgColor)
+								) {
+								}
+							}
+
+							@Preview @Composable
+							fun TogglePreview() = Toggle(true)
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle on"></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val bgColor = if(isEnabled) Color.Blue else Color.Gray
+								Box(modifier = Modifier
+									// width, height, clip
+									.background(bgColor)
+								) {
+								}
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle off"></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									// knob
+									Box()
+								}
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered">
+						<div class="toggle off"></div>
+					</div>
+				</section>
+				<section data-auto-animate data-transition="fade-out">
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									// knob
+									Box(modifier = Modifier
+										.width(32.dp).height(32.dp)
+										.padding(2.dp).clip(RoundedRectShape(14.dp))
+										.background(Color.White)
+									)
+								}
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="6-10">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									// knob
+									Box(modifier = Modifier
+										.width(32.dp).height(32.dp)
+										.padding(2.dp).clip(RoundedRectShape(14.dp))
+										.background(Color.White)
+									)
+								}
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="11-15">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									Knob()
+								}
+							}
+
+							@Composable
+							fun Knob() {
+									Box(modifier = Modifier
+										.width(32.dp).height(32.dp)
+										.padding(2.dp).clip(RoundedRectShape(14.dp))
+										.background(Color.White)
+									)
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="10-11">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									Knob()
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+									Box(modifier = modifier
+										.width(32.dp).height(32.dp)
+										.padding(2.dp).clip(RoundedRectShape(14.dp))
+										.background(Color.White)
+									)
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="5">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									Knob()
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+									Box(modifier = modifier
+										.width(32.dp).height(32.dp)
+										.padding(2.dp).clip(RoundedRectShape(14.dp))
+										.background(Color.White)
+									)
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="5">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								Box(//modifiers
+								) {
+									Knob(modifier = Modifier.offset(x = 0.dp))
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+								// ...
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="3,6">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val knobOffset = if(isEnabled) 32.dp else 0.dp
+								Box(//modifiers
+								) {
+									Knob(modifier = Modifier.offset(knobOffset))
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+								//...
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="3,6">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val knobOffset = if(isEnabled) 32.dp else 0.dp
+								Box(//modifiers
+								) {
+									Knob(modifier = Modifier.offset(knobOffset))
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+								//...
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="14">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val knobOffset = if(isEnabled) 32.dp else 0.dp
+								Box(//modifiers
+								) {
+									Knob(modifier = Modifier.offset(knobOffset))
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+								//...
+							}
+							// Preview = Toggle(false)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle off"><div class="knob"></div></div>
+					</div>
+				</section>
+				<section data-transition="fade-in" data-auto-animate>
+					<pre data-id="toggle-fn">
+						<code class="language-kotlin" data-trim data-line-numbers="14">
+							@Composable
+							fun Toggle(isEnabled: Boolean = false) {
+								val knobOffset = if(isEnabled) 32.dp else 0.dp
+								Box(//modifiers
+								) {
+									Knob(modifier = Modifier.offset(knobOffset))
+								}
+							}
+
+							@Composable
+							fun Knob(modifier = Modifier) {
+								//...
+							}
+							// Preview = Toggle(true)
+						</code>
+					</pre>
+					<div class="centered" data-id="toggle-ui">
+						<div class="toggle on"><div class="knob"></div></div>
+					</div>
 				</section>
 			</div>
 		</div>
@@ -202,6 +730,11 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
+
+			function toggle(element) {
+				element.classList.toggle("on")
+				element.classList.toggle("off")
+			}
 		</script>
 	</body>
 </html>

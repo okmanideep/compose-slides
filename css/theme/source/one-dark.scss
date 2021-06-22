@@ -17,16 +17,17 @@
 
 // Override theme settings (see ../template/settings.scss)
 $backgroundColor: #282c34;
+$raisedBackgroundColor: lighten($backgroundColor, 8%);
 
 $mainColor: #fff;
 $headingColor: #fff;
 
 $mainFontSize: 42px;
-$mainFont: 'Verdana', Helvetica, sans-serif;
-$headingFont: 'Verdana', Helvetica, sans-serif;
+$mainFont: 'Roboto Slab', Helvetica, sans-serif;
+$headingFont: 'Roboto Slab', Helvetica, sans-serif;
 $headingTextShadow: none;
 $headingLetterSpacing: normal;
-$headingTextTransform: uppercase;
+$headingTextTransform: none;
 $headingFontWeight: 600;
 $linkColor: #42affa;
 $linkColorHover: lighten( $linkColor, 15% );
@@ -46,9 +47,63 @@ $codeFont: 'Dank Mono', monospace;
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
+.reveal {
+	pre {
+		box-shadow: none;
+		tab-size: 2;
+		-moz-tab-size: 2;
+	}
 
-.reveal pre {
-	box-shadow: none;
-	tab-size: 2;
-	-moz-tab-size: 2;
+	.word-highlight {
+		color: #fff;
+		font-size: 74px;
+	}
+
+	.code {
+		font-family: 'Dank Mono', monospace;
+	}
+
+	.stamp {
+		position: absolute;
+		transition: opacity 300ms ease-in;
+	}
+
+	.serif {
+		font-family: 'Georgia', serif;
+		font-style: italic;
+	}
+
+	.small {
+		font-size: 24px;
+	}
+
+	.blue {
+		color: $linkColor;
+	}
+
+	.red {
+		color: #e06c75;
+	}
+
+	.box {
+		border: 2px solid white;
+		border-radius: 5px;
+		padding: 16px 0;
+		margin: 24px 32px;
+		background: $raisedBackgroundColor;
+	}
+
+	.slides section .fragment.highlight-blue.visible {
+		color: $linkColor;
+	}
+
+
+	.slides h1,
+	.slides h2,
+	.slides h3,
+	.slides h4,
+	.slides h5,
+	.slides h6 {
+		margin-bottom: 42px;
+	}
 }
