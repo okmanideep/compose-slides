@@ -40,6 +40,14 @@
   }
 }
 
+.toggle.flash {
+  transition: none;
+
+  .knob {
+    transition: none;
+  }
+}
+
 .toggle.squared {
   border-radius: 0;
 }
