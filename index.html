@@ -869,7 +869,7 @@
 							<script type="text/template">
 							@Composable
 							fun SettingsPage() {
-								var isEnabledState: State<Boolean> = mutableStateOf(false)
+								val isEnabledState: State<Boolean> = mutableStateOf(false)
 								Toggle(
 									isEnabled = true,
 									onClick = {}
@@ -894,7 +894,7 @@
 							<script type="text/template">
 							@Composable
 							fun SettingsPage() {
-								var isEnabledState: State<Boolean> = mutableStateOf(false)
+								val isEnabledState: State<Boolean> = mutableStateOf(false)
 								Toggle(
 									isEnabled = isEnabledState.getValue(),
 									onClick = {
@@ -1000,12 +1000,12 @@
 							<script type="text/template">
 							@Composable
 							fun SettingsPage() {
-								val viewmodel : SettingsViewModel = hiltViewModel()
+								val viewModel : SettingsViewModel = hiltViewModel()
 								var isEnabled: Boolean by viewModel.toggleState
 								Toggle(
 									isEnabled = isEnabled,
 									onClick = {
-										isEnabled = !isEnabled
+										viewModel.onToggleClicked()
 									}
 								)
 							}
@@ -1064,7 +1064,7 @@
 								val bgColor = if (isEnabled) Color.Blue else Color.Gray
 								val knobOffset = if(isEnabled) 32.dp else 0.dp
 								Box(//modifiers
-									.background()
+									.background(bgColor)
 									.clickable { onClick() }
 								) {
 									Knob(modifier = Modifier.offset(knobOffset))
@@ -1090,10 +1090,10 @@
 								onClick: () -> Unit = {},
 								modifier: Modifier = Modifier
 							) {
-								val bgColor by animateColorAsState {if (isEnabled) Color.Blue else Color.Gray}
-								val knobOffset by animateDpAsState {if(isEnabled) 32.dp else 0.dp}
+								var bgColor by animateColorAsState {if (isEnabled) Color.Blue else Color.Gray}
+								var knobOffset by animateDpAsState {if(isEnabled) 32.dp else 0.dp}
 								Box(//modifiers
-									.background()
+									.background(bgColor)
 									.clickable { onClick() }
 								) {
 									Knob(modifier = Modifier.offset(knobOffset))
@@ -1107,7 +1107,7 @@
 					<div class="centered" data-id="toggle-ui">
 						<div class="toggle off" onClick="toggle(this)"><div class="knob"></div></div>
 					</div>
-					<p class="fragment" data-id="comment"><code class="blue">animate*AsState</code> return <code class="red">State&lt;*&gt;</code> which are remembered and animated</p>
+					<p class="fragment" data-id="comment"><code class="blue">animate*AsState</code> returns a <code class="red">State&lt;*&gt;</code> which is remembered and it's value animated</p>
 				</section>
 				<section data-auto-animate>
 					<pre data-id="toggle-fn">
@@ -1120,10 +1120,10 @@
 								onClick: () -> Unit = {},
 								modifier: Modifier = Modifier
 							) {
-								val bgColor by animateColorAsState {if (isEnabled) Color.Blue else Color.Gray}
-								val knobOffset by animateDpAsState {if(isEnabled) 32.dp else 0.dp}
+								var bgColor by animateColorAsState {if (isEnabled) Color.Blue else Color.Gray}
+								var knobOffset by animateDpAsState {if(isEnabled) 32.dp else 0.dp}
 								Box(//modifiers
-									.background()
+									.background(bgColor)
 									.clickable { onClick() }
 								) {
 									Knob(modifier = Modifier.offset(knobOffset))
@@ -1145,7 +1145,7 @@
 					<p class="fragment">But hopefully, now <span class="red">you know what to look for</span> in the documentation, codelabs, videos etc.</p>
 				</section>
 				<section>
-					There's one small clip, I think will be greatly helpful in understanding the name - <span class="blue">Compose</span>
+					There's one small clip, I think will be greatly helpful in understanding - <span class="blue">How to structure Compose code</span>
 					<br>
 					<a href="https://youtu.be/SMOhl9RK0BA?t=548" class="fragment small serif red" target="blank">Thinking in Compose - Leland Richardson</a>
 				</section>
